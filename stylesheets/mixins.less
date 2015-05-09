@@ -1,0 +1,89 @@
+.transition (@transitions) {
+    -webkit-transition: @transitions;
+    -moz-transition: @transitions;
+    -ms-transition: @transitions;
+    -o-transition: @transitions;
+    transition: @transitions;
+}
+.transition (@transitionsA, @transitionsB) {
+    -webkit-transition: @transitionsA, @transitionsB;
+    -moz-transition: @transitionsA, @transitionsB;
+    -ms-transition: @transitionsA, @transitionsB;
+    -o-transition: @transitionsA, @transitionsB;
+    transition: @transitionsA, @transitionsB;
+}
+.box-shadow (@shadow, ...) {
+    // Thanks to http://www.toekneestuck.com/blog/2012/05/15/less-css-arguments-variable/
+    @shadows: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
+    -webkit-box-shadow: @shadows;
+    -moz-box-shadow: @shadows;
+    -ms-box-shadow: @shadows;
+    -o-box-shadow: @shadows;
+    box-shadow: @shadows;
+}
+.transform (@transform) {
+    -webkit-transform: @transform;
+    -moz-transform: @transform;
+    -ms-transform: @transform;
+    -o-transform: @transform;
+    transform: @transform;
+}
+.perspective (@perspective) {
+    -webkit-perspective: @perspective;
+    -moz-perspective: @perspective;
+    -ms-perspective: @perspective;
+    -o-perspective: @perspective;
+    perspective: @perspective;
+}
+.user-select (@select) {
+    -webkit-user-select: @select;
+    -moz-user-select: @select;
+    -ms-user-select: @select;
+    -o-user-select: @select;
+    user-select: @select;
+    cursor: default;
+}
+.animation (@name, @duration: 0.3s, @ease: ease, @delay: 0s, @iteration: infinite, @direction: alternate) {
+    -webkit-animation: @name @duration @ease @delay @iteration @direction;
+    -moz-animation: @name @duration @ease @delay @iteration @direction;
+    -o-animation: @name @duration @ease @delay @iteration @direction;
+    -ms-animation: @name @duration @ease @delay @iteration @direction;
+    animation: @name @duration @ease @delay @iteration @direction;
+}
+
+.if(...) {}
+.if(@condition, @callback...) when (@condition) {
+    @callback();
+    .-then();
+}
+.if(@condition, @callback...) when not(@condition) {
+    .-else(...){};
+    @callback();
+    @one:      extract(@condition, 1);
+    @two:      extract(@condition, 3);
+    @operator: extract(@condition, 2);
+    .-return(lt) {
+        & when    (@one < @two) {.if(true, @callback);}
+        & when not (@one < @two) {.-else();}
+    }
+    .-return(lte) {
+        & when    (@one <= @two) {.if(true, @callback);}
+        & when not(@one <= @two) {.-else();}
+    }
+    .-return(gt) {
+        & when    (@one > @two) {.if(true, @callback);}
+        & when not(@one > @two) {.-else();}
+    }
+    .-return(gte) {
+        & when    (@one >= @two) {.if(true, @callback);}
+        & when not(@one >= @two) {.-else();}
+    }
+    .-return(eq) {
+        & when    (@one = @two) {.if(true, @callback);}
+        & when not(@one = @two) {.-else();}
+    }
+    .-return(...) when (default()) {
+        .-else();
+    }
+    .-return(@operator);
+}

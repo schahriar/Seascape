@@ -1,0 +1,704 @@
+* {
+  font-family: 'Lato', sans-serif;
+}
+body {
+  height: 100%;
+  margin: 0 80px;
+}
+body > .pure-g > div {
+  overflow: hidden;
+  overflow-y: auto;
+}
+#Account {
+  font-size: 0.7em;
+}
+#Account div {
+  display: inline-block;
+  float: left;
+  opacity: 0.7;
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: right;
+  margin-top: 19px;
+  -webkit-transition: all 0.4s ease;
+          transition: all 0.4s ease;
+}
+#Account div:hover {
+  opacity: 1;
+}
+#Login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #0078e7;
+  color: white;
+  -webkit-transition: background 0.3s ease, -webkit-transform 0.6s ease 0.2s, border-radius 0.4s ease-out 0.2s, opacity 0.2s ease-out 0.3s, top 0.6s ease 0.2s;
+          transition: background 0.3s ease, transform 0.6s ease 0.2s, border-radius 0.4s ease-out 0.2s, opacity 0.2s ease-out 0.3s, top 0.6s ease 0.2s;
+}
+#Login form {
+  width: 50%;
+  min-width: 400px;
+  margin: 3em auto;
+  letter-spacing: 0;
+  font-size: 0.9em;
+}
+#Login form fieldset,
+#Login form #logo {
+  -webkit-transition: -webkit-transform 0.5s ease-out, opacity 0.3s ease;
+          transition: transform 0.5s ease-out, opacity 0.3s ease;
+}
+#Login form fieldset input {
+  padding: 11px 14px !important;
+  border-radius: 2px!important;
+  outline: 0!important;
+  margin-bottom: 1.4em!important;
+  color: #222;
+}
+#Login form button {
+  background: transparent;
+  border: 1px solid white;
+  color: #fafafa;
+  padding: 10px;
+  margin-top: 0.7em;
+}
+#Login form #logo {
+  margin: 0 auto;
+  text-align: center;
+  width: 400px;
+}
+#Login.hidden {
+  border-radius: 5%;
+  top: -100%;
+  -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+          transform: translateY(-100%);
+  pointer-events: none;
+}
+#Login.success {
+  background: #31D585;
+}
+#Login.success #logo {
+  -webkit-transform: translateY(100px);
+      -ms-transform: translateY(100px);
+          transform: translateY(100px);
+}
+#Login.success fieldset {
+  opacity: 0;
+}
+#Login.error {
+  background: #D53131;
+}
+.left {
+  float: left!important;
+}
+.right {
+  float: right!important;
+}
+img {
+  max-width: 100%;
+}
+.full-height {
+  height: 100%;
+}
+#plist,
+#view {
+  width: 100%;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  background: #fff;
+}
+#App {
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease;
+          transition: opacity 0.4s ease;
+  overflow-x: hidden;
+  -webkit-perspective: 100px;
+  -ms-perspective: 100px;
+  -o-perspective: 100px;
+  perspective: 100px;
+}
+#App.ready {
+  opacity: 1;
+}
+#App .mailOnly {
+  display: none;
+}
+#App .listOnly {
+  display: block;
+}
+#App #plist {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+}
+#App #view {
+  height: 100%;
+  height: -webkit-calc(100% - 44px);
+  height: calc(100% - 44px);
+  position: fixed;
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+  -webkit-transition: -webkit-transform 0.3s ease-out 0s, height 0.3s ease 0.3s;
+          transition: transform 0.3s ease-out 0s, height 0.3s ease 0.3s;
+}
+#App.isDisplayMail .listOnly {
+  display: none;
+}
+#App.isDisplayMail .mailOnly {
+  display: block;
+}
+#App.isDisplayMail #plist {
+  -webkit-transform: translate3d(0, 0, -8px);
+          transform: translate3d(0, 0, -8px);
+  height: 100%;
+}
+#App.isDisplayMail #view {
+  top: 0;
+  position: relative;
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.3s ease-out 0.3s;
+  transition: all 0.3s ease-out 0.3s;
+}
+.pure-u-0-24 {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.pure-g [class*="pure-u"] {
+  -webkit-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+label.title {
+  font-size: 2em;
+  opacity: 0.2;
+}
+nav {
+  padding: 0 0 8px;
+  margin: 12px 0 22px;
+  border-bottom: 1px dashed rgba(128, 128, 128, 0.25);
+}
+nav img {
+  width: 100px;
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+nav img:hover {
+  opacity: 0.7;
+}
+nav img:active {
+  opacity: 0.9;
+}
+#folders ul {
+  list-style: none;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+#folders ul > li {
+  margin: 2px 0;
+  padding: 8px 10px;
+  width: 100%;
+  border-left: 2px solid #f2f2f2;
+  opacity: 0.7;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#folders ul > li:hover {
+  opacity: 1;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+#folders ul > li.active,
+#folders ul ul > li:active {
+  border-color: #4eaeff;
+  opacity: 0.9;
+}
+/** -- Scrollbar -- **/
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f2f2f2;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+}
+/** -- --------- -- **/
+/* Inspired by CodePlayer at http://thecodeplayer.com/walkthrough/ripple-click-effect-google-material-design */
+.ink {
+  display: block;
+  position: absolute;
+  background: #ececec;
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+.ink.animate {
+  -webkit-animation: ripple 0.65s linear;
+  animation: ripple 0.65s linear;
+}
+@-webkit-keyframes ripple {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
+}
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
+}
+#toolbar {
+  padding: 0 0 10px;
+}
+#toolbar .inner {
+  margin: 0 10px;
+}
+#toolbar .inner > .divider {
+  background: none;
+  opacity: none;
+  border: none;
+}
+#toolbar .inner > button {
+  float: right;
+}
+/* Placeholders */
+[contentEditable=true]:empty:not(:focus):before {
+  content: attr(data-placeholder);
+  opacity: 0.7;
+}
+#composer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+#composer.minimized > div {
+  -webkit-transform: translate3d(0, 91%, 0);
+  -ms-transform: translate3d(0, 91%, 0);
+  transform: translate3d(0, 91%, 0);
+}
+#composer > div:nth-child(1) {
+  -webkit-perspective: 100px;
+          perspective: 100px;
+  right: 30px;
+  z-index: 4;
+}
+#composer > div:nth-child(2) {
+  -webkit-transform: rotateY(-16deg);
+          transform: rotateY(-16deg);
+  opacity: 1;
+  -webkit-perspective: 100px;
+          perspective: 100px;
+  right: 60px;
+  z-index: 3;
+}
+#composer > div:nth-child(2) button {
+  pointer-events: none;
+  opacity: 0;
+}
+#composer > div:nth-child(2) .overlay {
+  opacity: 0.08;
+  z-index: 3;
+}
+#composer > div:nth-child(3) {
+  -webkit-transform: rotateY(-24deg);
+          transform: rotateY(-24deg);
+  opacity: 1;
+  -webkit-perspective: 100px;
+          perspective: 100px;
+  right: 90px;
+  z-index: 2;
+}
+#composer > div:nth-child(3) button {
+  pointer-events: none;
+  opacity: 0;
+}
+#composer > div:nth-child(3) .overlay {
+  opacity: 0.12;
+  z-index: 2;
+}
+#composer > div:nth-child(4) {
+  -webkit-transform: rotateY(-32deg);
+          transform: rotateY(-32deg);
+  opacity: 1;
+  -webkit-perspective: 100px;
+          perspective: 100px;
+  right: 120px;
+  z-index: 1;
+}
+#composer > div:nth-child(4) button {
+  pointer-events: none;
+  opacity: 0;
+}
+#composer > div:nth-child(4) .overlay {
+  opacity: 0.16;
+  z-index: 1;
+}
+#composer > div:nth-child(5) {
+  -webkit-transform: rotateY(-40deg);
+          transform: rotateY(-40deg);
+  opacity: 1;
+  -webkit-perspective: 100px;
+          perspective: 100px;
+  right: 150px;
+  z-index: 0;
+}
+#composer > div:nth-child(5) button {
+  pointer-events: none;
+  opacity: 0;
+}
+#composer > div:nth-child(5) .overlay {
+  opacity: 0.2;
+  z-index: 0;
+}
+._inline {
+  margin-top: 30px;
+  padding-bottom: 70px;
+}
+._inline .overlay {
+  display: none;
+}
+._inline button {
+  width: 100%;
+  padding: 13px;
+}
+._inline #message {
+  height: auto;
+  min-height: 100px;
+  border: 1px solid #ececec;
+  border-radius: 5px;
+  outline: 0;
+  color: #444;
+  padding: 12px 15px;
+}
+._full {
+  width: 500px;
+  height: 440px;
+  float: left;
+  margin: 0 8px;
+  background: #fafafa;
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  border-left: 1px solid #eaeaea;
+  border-right: 1px solid #eaeaea;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+._full .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  background: black;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}
+._full * {
+  -webkit-transition: all 0.3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
+}
+._full .title {
+  width: 100%;
+  height: 40px;
+  background: #0078e7;
+  color: #fff;
+}
+._full .title #title {
+  line-height: 40px;
+  text-indent: 1em;
+  font-family: 'Lato';
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+._full .title .option {
+  line-height: 40px;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.7;
+}
+._full .title .option:hover {
+  opacity: 1;
+}
+._full form {
+  height: 100%;
+}
+._full form input {
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  height: 46px;
+  padding: 10px;
+  font-size: 12px;
+  outline: none;
+  color: #444;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #eaeaea;
+}
+._full form button {
+  border-radius: 0;
+}
+._full form .toolbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 34px;
+}
+._full form .toolbar .options {
+  background: #eaeaea;
+}
+._full form .toolbar .editor-button {
+  width: 34px;
+  height: 34px;
+  background: #eaeaea;
+  color: #777;
+  float: right;
+  border: none;
+  outline: none;
+  font-size: 12px;
+}
+._full form .toolbar .editor-button:hover {
+  background: #dfdfdf;
+  color: #222;
+}
+._full form .toolbar .editor-button.active {
+  background: #d9d9d9;
+  color: #444;
+}
+._full form #message {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 12px 12px 35px;
+  border: none;
+  outline: none;
+  background: #fff;
+}
+._full.yellow .title {
+  background: #fff633;
+  color: #634016;
+}
+._full.green .title {
+  background: #33b544;
+  color: #3c3c3c;
+}
+._full.orange .title {
+  background: #ff643e;
+  color: #292929;
+}
+._full.red .title {
+  background: #ff1a1a;
+  color: #f9f9f9;
+}
+.compose {
+  width: 90%;
+  margin: 0 auto 25px;
+}
+#stats {
+  line-height: 34px;
+  font-size: 11px;
+  color: #888;
+}
+article {
+  position: relative;
+  overflow: hidden;
+  height: 48px;
+  margin: 3px 0;
+  padding: 0 3px;
+  background-color: #FFFFFF;
+  border-left: 3px solid #F2F2F2;
+  opacity: 0.7;
+  -webkit-transition: all 0.3s ease, border 0.2s 0.3s ease-out;
+  transition: all 0.3s ease, border 0.2s 0.3s ease-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+article[selected] {
+  opacity: 1;
+  border-left-width: 6px;
+  border-left-color: #0084F4;
+  -ms-box-shadow: 15px 0px 10px rgba(131, 131, 131, 0.21), 0px 15px 10px rgba(32, 32, 32, 0.13);
+  -o-box-shadow: 15px 0px 10px rgba(131, 131, 131, 0.21), 0px 15px 10px rgba(32, 32, 32, 0.13);
+  box-shadow: 15px 0px 10px rgba(131, 131, 131, 0.21), 0px 15px 10px rgba(32, 32, 32, 0.13);
+}
+article:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+article.unread {
+  border-left-color: #3fb2f5;
+}
+.pure-u-8-24 header .short > .excerpt {
+  opacity: 0;
+  font-size: 0;
+}
+article:nth-child(2n) {
+  background-color: #FAFAFA;
+}
+article header {
+  position: relative;
+  overflow: hidden;
+  padding: 0 16px;
+}
+article header *,
+article header * > * {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+article header .read {
+  opacity: 0.8;
+}
+article header .read .subject {
+  color: #1941C0!important;
+}
+article header > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+article header > .inline > div,
+article header > .inline > div > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+  line-height: 48px;
+}
+article header .short > .excerpt {
+  color: #777;
+  font-family: 'Lato';
+}
+article header .short > .subject {
+  color: #0084F4;
+  font-weight: 800;
+  font-family: 'Lato';
+}
+article header .date {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  color: #0084F4;
+  font-size: 0.7em;
+}
+.zero {
+  font-size: 4em;
+  color: #777;
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 70px 50px 100px;
+  text-align: center;
+  line-height: 1;
+}
+.zero a {
+  font-size: 0.7em;
+  padding: 0 0 6px;
+  border-bottom: 3px dashed;
+}
+#list:empty {
+  width: 100%;
+  min-height: 300px;
+  border-radius: 5px;
+  background: #DDD;
+  opacity: 0.3;
+  -webkit-animation: flash 1s ease 0s infinite alternate;
+  animation: flash 1s ease 0s infinite alternate;
+}
+@-webkit-keyframes flash {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+@keyframes flash {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+#view ul.attachments {
+  padding: 0;
+}
+#view ul.attachments li.attachment {
+  padding: 14px 20px;
+  width: 100%;
+  list-style: none;
+  background: #F8F8F8;
+  border-radius: 4px;
+  color: #FFF;
+}
+#view > section {
+  padding: 0 20px;
+}
+#view > section > header {
+  padding: 0 0 1em;
+  border-bottom: 1px solid #E7E7E7;
+}
+#view > section > header > h2 {
+  width: 100%;
+  margin: 0.4em 0 0.14em;
+  color: #4CA5F0;
+  font-weight: 100;
+  font-size: 2.56em;
+  letter-spacing: normal;
+}
+#view > section > header > .details {
+  text-indent: 1px;
+  color: #5F5F5F;
+  font-weight: 400;
+  font-size: 0.8em;
+  font-family: 'Lato';
+}
+#view > section > header > .details > span {
+  color: #4CA5F0;
+}
+#view > section > header > .date {
+  color: #0084F4;
+  font-size: 0.8em;
+  text-align: right;
+}
+#view .html {
+  margin: 1em 0;
+}
+form legend {
+  font-size: 1.6em;
+  font-weight: 100;
+}
+form input {
+  margin-bottom: 20px;
+}
+form input,
+form button {
+  width: 100%;
+}

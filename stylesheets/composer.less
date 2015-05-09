@@ -1,0 +1,178 @@
+@import (reference) "./mixins";
+/* Placeholders */
+[contentEditable=true]:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    opacity: 0.7;
+}
+#composer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    &.minimized > div {
+        .transform(translate3d(0,91%,0));
+    }
+    .composer-loop (@n, @i: 1) when (@i =< @n) {
+        & > div:nth-child(@{i}) {
+            .if(@i gt 1, { .-then(){ transform: rotateY(-8deg * @i); opacity: 1; & button { pointer-events: none; opacity: 0; } & .overlay { opacity: 0.04 * @i; z-index: @n - @i; } } });
+            perspective: 100px;
+            right: 30px * @i;
+            z-index: @n - @i;
+        }
+        .composer-loop(@n, (@i + 1));
+    }
+    .composer-loop(5);
+}
+._inline {
+    margin-top: 30px;
+    padding-bottom: 70px;
+    & .overlay {
+        display: none;
+    }
+    & button {
+        width: 100%;
+        padding: 13px;
+    }
+    & #message {
+        height: auto;
+        min-height: 100px;
+        border: 1px solid #ececec;
+        border-radius: 5px;
+        outline: 0;
+        color: #444;
+        padding: 12px 15px;
+    }
+}
+._full {
+    width: 500px;
+    height: 440px;
+    float: left;
+    margin: 0 8px;
+    background: #fafafa;
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+    border-left: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    & .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        pointer-events: none;
+        background: black;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    .transition(all 0.3s ease 0s);
+    & * {
+        .transition(all 0.3s ease-out 0s);
+    }
+    & .title {
+        width: 100%;
+        height: 40px;
+        background: #0078e7;
+        color: #fff;
+        & #title {
+            line-height: 40px;
+            text-indent: 1em;
+            font-family: 'Lato';
+            font-size: 14px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        & .option {
+            line-height: 40px;
+            font-size: 13px;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0.7;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    & form {
+        height: 100%;
+        & input {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+            height: 46px;
+            padding: 10px;
+            font-size: 12px;
+            outline: none;
+            color: #444;
+            margin: 0;
+            border: 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        & button {
+            border-radius: 0;
+        }
+        & .toolbar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 34px;
+            & .options {
+                background: #eaeaea;
+            }
+            & .editor-button {
+                width: 34px;
+                height: 34px;
+                background: #eaeaea;
+                color: #777;
+                float: right;
+                border: none;
+                outline: none;
+                font-size: 12px;
+                &:hover {
+                    background: #dfdfdf;
+                    color: #222;
+                }
+                &.active {
+                    background: #d9d9d9;
+                    color: #444;
+                }
+            }
+        }
+        & #message {
+            width: 100%;
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 12px 12px 35px;
+            border: none;
+            outline: none;
+            background: #fff;
+        }
+    }
+    &.yellow {
+        & .title {
+            background: #fff633;
+            color: #634016;
+        }
+    }
+    &.green {
+        & .title {
+            background: #33b544;
+            color: #3c3c3c;
+        }
+    }
+    &.orange {
+        & .title {
+            background: #ff643e;
+            color: #292929;
+        }
+    }
+    &.red {
+        & .title {
+            background: #ff1a1a;
+            color: #f9f9f9;
+        }
+    }
+}

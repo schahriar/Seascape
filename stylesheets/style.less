@@ -1,0 +1,271 @@
+@base: #f2f2f2;
+@secondary: #4eaeff;
+@import (reference) "./mixins";
+* {
+    font-family: 'Lato', sans-serif;
+}
+// Set App height to window height
+body {
+    height: 100%;
+	margin: 0 80px;
+
+}
+body > .pure-g > div {
+    overflow: hidden;
+    overflow-y: auto;
+}
+#Account {
+    font-size: 0.7em;
+    & div {
+        display: inline-block;
+        float: left;
+        opacity: 0.7;
+        cursor: pointer;
+        vertical-align: middle;
+        text-align: right;
+        margin-top: 19px;
+
+        transition: all 0.4s ease;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+#Login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #0078e7;
+    color: white;
+    transition: background 0.3s ease, transform 0.6s ease 0.2s, border-radius 0.4s ease-out 0.2s, opacity 0.2s ease-out 0.3s, top 0.6s ease 0.2s;
+    & form {
+        width: 50%;
+        min-width: 400px;
+        margin: 3em auto;
+        letter-spacing: 0;
+        font-size: 0.9em;
+		& fieldset, & #logo {
+			transition: transform 0.5s ease-out, opacity 0.3s ease;
+		}
+        & fieldset input {
+            padding: 11px 14px !important;
+            border-radius: 2px!important;
+            outline: 0!important;
+            margin-bottom: 1.4em!important;
+            color: #222;
+        }
+        & button {
+            background: transparent;
+            border: 1px solid white;
+            color: #fafafa;
+            padding: 10px;
+            margin-top: 0.7em;
+        }
+		& #logo {
+			margin: 0 auto;
+			text-align: center;
+			width: 400px;
+		}
+    }
+    &.hidden {
+        border-radius: 5%;
+		top: -100%;
+        transform: translateY(-100%);
+        pointer-events: none;
+    }
+    &.success {
+        background: #31D585;
+		& #logo {
+			transform: translateY(100px)
+		}
+		& fieldset {
+			opacity: 0;
+		}
+    }
+	&.error {
+		background: #D53131;
+	}
+}
+.left {
+    float: left!important;
+}
+.right {
+    float: right!important;
+}
+img {
+    max-width: 100%;
+}
+.full-height {
+    height: 100%;
+}
+#plist,
+#view {
+    width: 100%;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    background: #fff;
+}
+#App {
+	opacity: 0;
+	transition: opacity 0.4s ease;
+    overflow-x: hidden;
+    .perspective(100px);
+	&.ready {
+		opacity: 1;
+	}
+    & .mailOnly {
+        display: none;
+    }
+    & .listOnly {
+        display: block;
+    }
+    & #plist {
+        .transform(translate3d(0,0,0));
+        .transition(all 0.3s ease-out);
+        overflow: hidden;
+    }
+    & #view {
+        height: 100%;
+        height: calc(~"100% - 44px");
+        position: fixed;
+        transform: translate3d(100%, 0, 0);
+        transition: transform 0.3s ease-out 0s, height 0.3s ease 0.3s;
+    }
+    &.isDisplayMail {
+        & .listOnly {
+            display: none;
+        }
+        & .mailOnly {
+            display: block;
+        }
+        & #plist {
+            transform: translate3d(0, 0, -8px);
+            height: 100%;
+        }
+        & #view {
+            top: 0;
+            position: relative;
+            .transform(translate3d(0,0,0));
+            .transition(all 0.3s ease-out 0.3s);
+        }
+    }
+}
+.pure-u-0-24 {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+.pure-g [class *="pure-u"] {
+    .transition (width 0.3s ease);
+}
+label.title {
+    font-size: 2em;
+    opacity: 0.2;
+}
+nav {
+    padding: 0 0 8px;
+    margin: 12px 0 22px;
+    border-bottom: 1px dashed rgba(128, 128, 128, 0.25);
+    & img {
+        width: 100px;
+        opacity: 0.5;
+        cursor: pointer;
+        .transition (opacity 0.3s ease);
+        &:hover {
+            opacity: 0.7;
+        }
+        &:active {
+            opacity: 0.9;
+        }
+    }
+}
+#folders {
+    & ul {
+        list-style: none;
+        padding: 0;
+        .user-select (none);
+        & > li {
+            margin: 2px 0;
+            padding: 8px 10px;
+            width: 100%;
+            border-left: 2px solid @base;
+            opacity: 0.7;
+            .transition (all 0.3s ease);
+            &:hover {
+                opacity: 1;
+                cursor: pointer;
+                padding: 8px 12px;
+            }
+        }
+        & > li.active,
+        ul > li:active {
+            border-color: @secondary;
+            opacity: 0.9;
+        }
+    }
+}
+/** -- Scrollbar -- **/
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: @base;
+}
+::-webkit-scrollbar-thumb {
+    background: darken(@base, 10%);
+}
+/** -- --------- -- **/
+/* Inspired by CodePlayer at http://thecodeplayer.com/walkthrough/ripple-click-effect-google-material-design */
+.ink {
+    display: block;
+    position: absolute;
+    background: #ececec;
+    border-radius: 100%;
+    .transform(scale(0));
+}
+.ink.animate {
+    -webkit-animation: ripple 0.65s linear;
+    -moz-animation: ripple 0.65s linear;
+    -o-animation: ripple 0.65s linear;
+    -ms-animation: ripple 0.65s linear;
+    animation: ripple 0.65s linear;
+}
+@-webkit-keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+@-moz-keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+@-o-keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+@-ms-keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+@keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+@import "./toolbar";
+@import "./composer";
+@import "./list";
+@import "./mail";
+@import "./forms";

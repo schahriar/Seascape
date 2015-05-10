@@ -10,6 +10,17 @@ window.$ = $;
 window._ = _;
 window.moment = moment;
 
+// Locate API
+$.ajaxPrefilter(function( options ) {
+    options.url = '//'+location.hostname + options.url;
+	options.crossDomain ={
+	    crossDomain: true
+	    };
+	    options.xhrFields = {
+	        withCredentials: true
+	    };
+});
+
 var unknown = "unknown", fail = no = false, pass = yes = true, empty = "";
 
 var access = require('./access');

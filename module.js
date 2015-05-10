@@ -4,14 +4,23 @@ var fs = require('fs');
 var path = require('path');
 
 var files = [{
-    url: 'dist/bundle.js',
-    path: "./dist/bundle.js"
+    url: '/dist/bundle.js',
+    path: "bundle.js"
 }, {
-    url: 'dist/style.css',
-    path: "./dist/style.css"
+    url: '/dist/style.css',
+    path: "style.css"
 }, {
-    url: 'index.html',
-    path: "./index.html"
+    url: '/home',
+    path: "index.html"
+}, {
+    url: '/logo-mini.png',
+    path: "logo-mini.png"
+}, {
+    url: '/logo-white.png',
+    path: "logo-white.png"
+}, {
+    url: '/logo.png',
+    path: "logo.png"
 }]
 
 
@@ -19,7 +28,6 @@ var files = [{
 module.exports = {
     name: "Seascape",
     extends: "frontend",
-    version: "1.2.0",
     defaults: {
         port: 2095
     },
@@ -28,8 +36,9 @@ module.exports = {
         var app = express();
 
         files.forEach(function(file, index) {
-            app.get(file.url, function(req, res) {
+            app.use(file.url, function(req, res) {
                 res.sendFile(file.path, {
+                    root: __dirname + "/dist/",
                     dotfiles: 'deny',
                     headers: {
                         'x-timestamp': Date.now(),
@@ -40,7 +49,7 @@ module.exports = {
                         console.log(error);
                         res.status(error.status).end();
                     } else {
-                        console.log('Sent:', file.path);
+                        console.log('SEASCAPE [SENT]:', file.path);
                     }
                 });
             });

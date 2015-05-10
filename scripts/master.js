@@ -12,7 +12,7 @@ window.moment = moment;
 
 // Locate API
 $.ajaxPrefilter(function( options ) {
-    options.url = '//'+location.hostname + options.url;
+    options.url = '//'+location.hostname+':3080' + options.url;
 	options.crossDomain ={
 	    crossDomain: true
 	    };

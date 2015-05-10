@@ -11,6 +11,40 @@ This will automatically install and launch after a server restart:
 galleon restart
 ```
 
+## Serving static
+You can proxy Galleon API (serving on port 3080 by default) and serve Seascape **dist** folder as static front-end. This can be done using **NGINX**:
+```
+upstream Galleon {
+    server 127.0.0.1:3080;
+    keepalive 8;
+}
+
+server {
+        listen 80;
+        listen [::]:80;
+
+        # Make site accessible from your-domain.com
+        server_name <your-domain>;
+
+        root <path-to-static-folder>;
+
+        location / {
+                try_files $uri $uri/ $uri.html =404;
+        }
+
+        location /api {
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+                proxy_set_header X-NginX-Proxy true;
+
+                proxy_pass http://Galleon/;
+                proxy_redirect off;
+        }
+}
+```
+Note that this requires a removal of port from **/scriptes/master.js** at line 15 and a recompilation through *gulp*. API Discovery will be automatic after Galleon Beta 2 is released.
+
 ## Access
 A FQDN (Fully Qualified Domain Name) is required for access. You'll need to set this up through **galleon setup** which will provide access to your webmail interface through <your-domain.com>:2095
 

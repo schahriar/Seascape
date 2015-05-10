@@ -15,9 +15,9 @@ galleon restart
 A FQDN (Fully Qualified Domain Name) is required for access. You'll need to set this up through **galleon setup** which will provide access to your webmail interface through <your-domain.com>:2095
 
 ## Screenshots
-![Screenshots](./display/email-list.png)
-![Screenshots](./display/email-show.png)
-![Screenshots](./display/zero-data.png)
+![Screenshots](./display/email-list.jpg)
+![Screenshots](./display/email-show.jpg)
+![Screenshots](./display/zero-data.jpg)
 
 ## NOTICE
 **SEASCAPE & GALLEON** are both in beta stages and may/will have critical bugs. These bugs will be fixed as we get closer to a release version. You can [report any issues with this repository here](https://github.com/schahriar/galleon-seascape/issues/new).

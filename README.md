@@ -49,9 +49,9 @@ Note that this requires a removal of port from **/scriptes/master.js** at line 1
 A FQDN (Fully Qualified Domain Name) is required for access. You'll need to set this up through **galleon setup** which will provide access to your webmail interface through <your-domain.com>:2095
 
 ## Screenshots
-![Screenshots](//raw.githubusercontent.com/schahriar/galleon-seascape/master/display/email-list.jpg)
-![Screenshots](//raw.githubusercontent.com/schahriar/galleon-seascape/master/display/email-show.jpg)
-![Screenshots](//raw.githubusercontent.com/schahriar/galleon-seascape/master/display/zero-data.jpg)
+![Screenshots](//raw.githubusercontent.com/schahriar/Seascape/master/display/email-list.jpg)
+![Screenshots](//raw.githubusercontent.com/schahriar/Seascape/master/display/email-show.jpg)
+![Screenshots](//raw.githubusercontent.com/schahriar/Seascape/master/display/zero-data.jpg)
 
 ## NOTICE
-**SEASCAPE & GALLEON** are both in beta stages and may/will have critical bugs. These bugs will be fixed as we get closer to a release version. You can [report any issues with this repository here](https://github.com/schahriar/galleon-seascape/issues/new).
+**SEASCAPE & GALLEON** are both in beta stages and may/will have critical bugs. These bugs will be fixed as we get closer to a release version. You can [report any issues with this repository here](https://github.com/schahriar/Seascape/issues/new).

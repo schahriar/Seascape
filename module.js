@@ -17,6 +17,8 @@ module.exports = {
     },
     exec: function(){
         console.log("SEASCAPE STARTED");
+        console.log("ARGUMENTS", '\n', arguments, '\n');
+        console.log("CONTEXT", '\n', this, '\n');
         /*
         files.forEach(function(file, index) {
             fs.exists(fileName, function (exists) {

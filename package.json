@@ -1,6 +1,6 @@
 {
   "name": "galleon-seascape",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Frontend for Galleon Mailserver",
   "main": "module.js",
   "scripts": {

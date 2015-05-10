@@ -1,12 +1,20 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
+var path = require('path');
 
-var files = [
-    "./dist/bundle.js",
-    "./dist/style.css",
-    "./index.html"
-]
+var files = [{
+    url: 'dist/bundle.js',
+    path: "./dist/bundle.js"
+}, {
+    url: 'dist/style.css',
+    path: "./dist/style.css"
+}, {
+    url: 'index.html',
+    path: "./index.html"
+}]
+
+
 
 module.exports = {
     name: "Seascape",
@@ -15,15 +23,34 @@ module.exports = {
     defaults: {
         port: 2095
     },
-    exec: function(){
-        console.log("SEASCAPE STARTED");
-        console.log("ARGUMENTS", '\n', arguments, '\n');
-        console.log("CONTEXT", '\n', this, '\n');
-        /*
+    exec: function(home, callback) {
+        var express = require('express');
+        var app = express();
+
         files.forEach(function(file, index) {
-            fs.exists(fileName, function (exists) {
-            }
+            app.get(file.url, function(req, res) {
+                res.sendFile(file.path, {
+                    dotfiles: 'deny',
+                    headers: {
+                        'x-timestamp': Date.now(),
+                        'x-sent': true
+                    }
+                }, function(error) {
+                    if (error) {
+                        console.log(error);
+                        res.status(error.status).end();
+                    } else {
+                        console.log('Sent:', file.path);
+                    }
+                });
+            });
         })
-        */
+
+        // 404 error
+        app.use(function(req, res, next) {
+            res.status(404).end('404 - Not Found!');
+        })
+
+        app.listen(this.config.port);
     }
 }

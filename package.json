@@ -1,6 +1,6 @@
 {
   "name": "galleon-seascape",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Frontend (WEBMAIL) for Galleon Mailserver",
   "main": "module.js",
   "scripts": {
@@ -33,6 +33,10 @@
   },
   "author": "Schahriar SaffarShargh <info@schahriar.com> (http://schahriar.com/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/schahriar/Seascape.git"
+  },
   "dependencies": {
     "express": "^4.12.3"
   }

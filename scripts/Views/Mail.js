@@ -1,6 +1,6 @@
 // @Aliceljm - http://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
 function bytesToSize(bytes) {
-    if(bytes == 0) return '0 Byte';
+    if(bytes === 0) return '0 Byte';
     var k = 1000;
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     var i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -56,9 +56,9 @@ module.exports = function(Backbone, Composer) {
                 attachment.link = window.root + "I" + attachment.id + "/attachment/" + attachment.aID;
                 attachment.size = bytesToSize(attachment.length);
                 attachmentList.append(_this.templates.attachment(attachment));
-            })
+            });
 
             return this;
         }
     });
-}
+};

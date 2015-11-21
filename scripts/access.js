@@ -10,7 +10,7 @@ var access = {
         this.get(function(auth){
             if(auth) return callback(true);
             else return callback(false);
-        })
+        });
     },
     request: function(email, password, callback) {
         $.ajaxSetup({async:true});
@@ -19,12 +19,12 @@ var access = {
                 password: password
             }, "json")
             .done(function(data) {
-                callback(data)
+                callback(data);
             });
     },
     logout: function(callback) {
         $.post(window.root + "access/logout", null, "json").done(function(data) {
-            callback(data)
+            callback(data);
         });
     },
     changePassword: function(currentPassword, newPassword, confirmPassword, callback) {
@@ -36,9 +36,9 @@ var access = {
             cpassword: currentPassword,
             password: newPassword
         }, "json").done(function(data) {
-            callback(data)
+            callback(data);
         });
     }
-}
+};
 
 module.exports = access;

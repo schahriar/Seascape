@@ -1,10 +1,12 @@
 var unknown = "unknown",
-    fail = no = false,
-    pass = yes = true,
+    no = false,
+    yes = true,
+    fail = false,
+    pass = true,
     empty = "";
     
 var Anti = require('anti');
-var XSSParser = new Anti({ experimentalInlineCSS: true })
+var XSSParser = new Anti({ experimentalInlineCSS: true });
 
 module.exports = function(Backbone) {
     return Backbone.Model.extend({
@@ -19,7 +21,7 @@ module.exports = function(Backbone) {
                     name: unknown,
                     email: unknown
                 },
-                to: new Array,
+                to: [],
                 subject: unknown,
 
                 read: false,
@@ -70,18 +72,17 @@ module.exports = function(Backbone) {
             var model = this;
             // If trashing from trash folder or trashing draft/outbox
             if(
-                ((mark.trash === true) && (this.get('trash') === true))
-                ||
+                ((mark.trash === true) && (this.get('trash') === true)) ||
                 ((mark.trash === true) && (this.get('folder') === 'draft'))
             )
-                this.destroy()
+                this.destroy();
             else {
                 _.forEach(mark, function(value, key) {
-                    mark[key] = !(model.get(key) && value)
-                })
+                    mark[key] = !(model.get(key) && value);
+                });
                 this.set(mark).save(mark, { patch: true });
             }
         }
 
-    })
-}
+    });
+};

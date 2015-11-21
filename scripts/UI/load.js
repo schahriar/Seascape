@@ -7,7 +7,7 @@ var onHold = function(event, element, self) {
 
     var mail = self.find({ 'eID': element.attr('data-eid') });
     mail.toggleSelection();
-}
+};
 
 module.exports = function(e) {
     var self = this;
@@ -82,9 +82,9 @@ module.exports = function(e) {
                 // Redirect cid embedded attachments
                 self.view.find('.html img').each(function(){
                     if(decodeURIComponent($(this).attr('src')).substring(0, 4) === 'cid:') {
-                        $(this).attr('src', window.root + mail.get('eID') + "/attachment/cid=" + decodeURIComponent($(this).attr('src')).substring(4))
+                        $(this).attr('src', window.root + mail.get('eID') + "/attachment/cid=" + decodeURIComponent($(this).attr('src')).substring(4));
                     }
-                })
+                });
 
                 // Add some smoothness here B)
                 // Fix for html emails with wide content
@@ -94,4 +94,4 @@ module.exports = function(e) {
             self.view.find('.html').html('...');
         }
     }));
-}
+};

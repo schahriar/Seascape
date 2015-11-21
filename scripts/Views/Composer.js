@@ -45,7 +45,7 @@ module.exports = function(Backbone) {
                 text: "",
 
                 inline: false
-            })
+            });
 
             // Do a bunch of clever selection stuff later
             rangy.init();
@@ -87,8 +87,8 @@ module.exports = function(Backbone) {
                             type: 'DELETE'
                         });
                     }
-                })
-            })
+                });
+            });
 
             // Bind keyboard
             $(this.el).bind('keydown', function(event) {
@@ -134,8 +134,8 @@ module.exports = function(Backbone) {
                     else _this.removeStyles();
 
                     return false;
-                })
-            })
+                });
+            });
         },
 
         min: function(e) {
@@ -178,7 +178,7 @@ module.exports = function(Backbone) {
                 $(_this.el).find('[data-editor-format="' + format.name + '"][data-editor="t"]').toggleClass('active', false);
                 format.status = false;
                 return format;
-            })
+            });
         },
         
         getMail: function(draft) {
@@ -217,5 +217,5 @@ module.exports = function(Backbone) {
             }
         }
 
-    })
-}
+    });
+};

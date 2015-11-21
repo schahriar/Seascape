@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var moment = require('moment');
 
-onHold = function(event, element, self) {
+var onHold = function(event, element, self) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -65,7 +65,7 @@ module.exports = function(e) {
             var parsedDate = (mail.get('stamp'))?mail.get('stamp').sent:mail.get('schedule').attempted;
             // Add better date parsing
             newElement.find('.date').text(moment(parsedDate).startOf('day').fromNow());
-
+            
             self.view.html(newElement);
 
             // Timeout for css3 animation
@@ -81,8 +81,8 @@ module.exports = function(e) {
 
                 // Redirect cid embedded attachments
                 self.view.find('.html img').each(function(){
-                    if($(this).attr('src').substring(0, 4) === 'cid:') {
-                        $(this).attr('src', "api/" + mail.get('eID') + "/attachment/cid=" + $(this).attr('src').substring(4))
+                    if(decodeURIComponent($(this).attr('src')).substring(0, 4) === 'cid:') {
+                        $(this).attr('src', window.root + mail.get('eID') + "/attachment/cid=" + decodeURIComponent($(this).attr('src')).substring(4))
                     }
                 })
 

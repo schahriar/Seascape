@@ -1,6 +1,6 @@
 module.exports = function(Backbone, Mail) {
     return Backbone.Collection.extend({
-        url: '/api',
+        url: window.root,
 
         // Reference to this collection's model.
         model: Mail,

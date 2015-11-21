@@ -148,7 +148,7 @@ module.exports = function(Backbone) {
 
             if ((email.html.length > 1) || window.confirm("Your message body seems to be empty. Do you still want send it?")) {
 
-                $.post("/api/send", email)
+                $.post(window.root + "send", email)
                     .done(function(msg) {
                         alert("Message sent");
                     });

@@ -2,7 +2,7 @@ var $ = require('jquery');
 
 var access = {
     get: function(callback) {
-        $.get("/api/access/check", function(data) {
+        $.get(window.root + "access/check", function(data) {
             callback(data.authenticated || false);
         }, "json");
     },
@@ -14,7 +14,7 @@ var access = {
     },
     request: function(email, password, callback) {
         $.ajaxSetup({async:true});
-        $.post("/api/access/login", {
+        $.post(window.root + "access/login", {
                 email: email,
                 password: password
             }, "json")
@@ -23,7 +23,7 @@ var access = {
             });
     },
     logout: function(callback) {
-        $.post("/api/access/logout", null, "json").done(function(data) {
+        $.post(window.root + "access/logout", null, "json").done(function(data) {
             callback(data)
         });
     },
@@ -32,7 +32,7 @@ var access = {
         // Confirm password function
         if(newPassword !== confirmPassword) return callback({ error: "New password does not match its confirmation." });
 
-        $.post("/api/access/changePassword", {
+        $.post(window.root + "access/changePassword", {
             cpassword: currentPassword,
             password: newPassword
         }, "json").done(function(data) {

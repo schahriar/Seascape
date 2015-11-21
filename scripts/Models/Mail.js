@@ -5,7 +5,7 @@ var unknown = "unknown",
 
 module.exports = function(Backbone) {
     return Backbone.Model.extend({
-        urlRoot: '/api',
+        urlRoot: window.root,
         idAttribute: 'eID',
 
         // Default attributes

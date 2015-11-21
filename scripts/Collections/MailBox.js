@@ -27,6 +27,12 @@ module.exports = function(Backbone, Mail) {
                     showing: data.showing,
                     total: data.total,
                 }
+                
+                // Attach folder to each result
+                _.map(data.results, function(mail) {
+                    mail.folder = stats.folder;
+                    return mail;
+                })
 
                 // Return results
                 return data.results;

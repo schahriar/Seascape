@@ -62,7 +62,7 @@ client.build = function(){
 	this.App = new App();
 };
 
-$(function(){
+function onAPIAvailable() {
 	function Launch(){
 		$('#App').addClass('ready');
 		window.API = new client.build();
@@ -101,4 +101,11 @@ $(function(){
 			}
 		});
 	});
-});
+}
+
+(function(){
+	$.get("/GETAPIURL", function(data) {
+		if(data) window.root = data.url;
+		onAPIAvailable();
+	}, "json");
+})();

@@ -44,7 +44,7 @@
 }
 ._full {
     width: 500px;
-    height: 440px;
+    height: 500px;
     float: left;
     margin: 0 8px;
     background: #fafafa;
@@ -141,14 +141,141 @@
         }
         & #message {
             width: 100%;
-            height: 100%;
+            height: 270px;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
-            padding: 12px 12px 35px;
+            padding: 12px 12px 0;
             border: none;
             outline: none;
             background: #fff;
+            overflow-y: scroll;
+        }
+        & #preview {
+            overflow-y: hidden;
+            overflow-x: auto;
+            height: 64px;
+            padding: 0;
+            margin-top: 0px;
+            white-space: nowrap;
+            width: auto;
+            
+            & .dz-preview {
+                position: relative;
+                display: inline-block;
+                width: 132px;
+                margin: -5px 5px;
+            }
+            
+            & .dz-details {
+                background-color: #DADADA;
+                border: 1px solid #C3C3C3;
+                width: 120px;
+                height: 26px;
+                border-radius: 5px;
+                padding: 4px 5px;
+                text-align: left;
+                font-size: 11px;
+                float: right;
+                & .dz-filename {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+            
+            & .dz-error-message, & .dz-success-mark, & .dz-error-mark {
+                display: none;
+            }
+            
+            & .dz-image img {
+                border: 1px solid gray;
+                width: 14px;
+            }
+            
+            & .dz-processing {
+                & .dz-progress {
+                    background: #222;
+                    & .dz-upload {
+                        background-color: gold;
+                    }
+                }
+            }
+            
+            & .dz-success {
+                & .dz-progress .dz-upload {
+                    background-color: #00FF4C;
+                }
+                
+                & .dz-details {
+                    background-color: #01C13A;
+                    color: #E9E9E9;
+                    text-shadow: 0 0 3px #676767;
+                }
+                
+                & .dz-remove {
+                    color: white;
+                }
+            }
+            
+            & .dz-error {
+                & .dz-progress .dz-upload {
+                    background-color: red!important;
+                }
+                
+                &.dz-image-preview:before {
+                    padding-left: 20px;
+                }
+                
+                &:before {
+                    content: "failed";
+                    font-size: 9px;
+                    position: absolute;
+                    padding-top: 2px;
+                }
+                
+                & .dz-details {
+                    background-color: red;
+                    color: #E9E9E9;
+                    text-shadow: 0 0 3px #676767;
+                }
+            }
+            
+            & .dz-progress {
+                height: 2px;
+                background: #DEE861;
+                z-index: 9999;
+                position: relative;
+                width: 100%;
+                border-radius: 6px;
+                margin: 1px 0;
+                & .dz-upload {
+                    width: 100%;
+                    background-color: #222;
+                    border-radius: 8px;
+                    height: 2px;
+                    position: absolute;
+                }
+            }
+            
+            & .dz-remove {
+                color: #222;
+                text-decoration: none;
+                position: absolute;
+                right: 2px;
+                top: 22px;
+                font-size: 9px;
+                background-color: rgba(255, 255, 255, 0.2);
+                padding: 2px 4px 3px;
+                border-radius: 0;
+            }
+            
+            & .dz-remove:hover {
+                background-color: rgba(255, 255, 255, 0.8);
+                color: #222;
+                border-radius: 50%;
+                padding: 1px 4px 2px;
+            }
         }
     }
     &.yellow {

@@ -9,7 +9,7 @@ Backbone.$ = $;
 window.$ = $;
 window._ = _;
 window.moment = moment;
-window.root = '/';
+window.root = '/api';
 
 var unknown = "unknown", no = false, yes = true, fail = false, pass = true, empty = "";
 

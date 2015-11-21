@@ -32,7 +32,8 @@ module.exports = {
     name: "Seascape",
     extends: "frontend",
     defaults: {
-        port: 2095
+        port: 2095,
+        api: 'http://localhost:3080/'
     },
     exec: function(home, callback) {
         var express = require('express');
@@ -56,13 +57,17 @@ module.exports = {
                     }
                 });
             });
-        })
+        });
+        
+        app.use('/GETAPIURL', function(req, res) {
+           res.json({ url: this.config.api });
+        });
 
         // 404 error
         app.use(function(req, res, next) {
             res.status(404).end('404 - Not Found!');
-        })
+        });
 
         app.listen(this.config.port);
     }
-}
+};

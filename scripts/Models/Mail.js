@@ -68,9 +68,13 @@ module.exports = function(Backbone) {
 
         markAs: function(mark) {
             var model = this;
-            // If trashing from trash folder
-            if((mark.trash === true) && (this.get('trash') === true))
-                this.destroy();
+            // If trashing from trash folder or trashing draft/outbox
+            if(
+                ((mark.trash === true) && (this.get('trash') === true))
+                ||
+                ((mark.trash === true) && (this.get('folder') === 'draft'))
+            )
+                this.destroy()
             else {
                 _.forEach(mark, function(value, key) {
                     mark[key] = !(model.get(key) && value)

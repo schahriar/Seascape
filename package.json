@@ -32,7 +32,7 @@
     "url": "git://github.com/schahriar/Seascape.git"
   },
   "dependencies": {
-    "express": "^4.12.3"
+    "express": "^4.12.3",
     "anti": "^0.1.6",
     "backbone": "^1.1.2",
     "backbone.localstorage": "^1.1.14",

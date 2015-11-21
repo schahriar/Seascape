@@ -24,7 +24,7 @@ var files = [{
 }, {
     url: '/logo.png',
     path: "logo.png"
-}]
+}];
 
 
 
@@ -36,8 +36,13 @@ module.exports = {
         api: 'http://localhost:3080/'
     },
     exec: function(home, callback) {
+        var context = this;
         var express = require('express');
         var app = express();
+        
+        app.get('/GETAPIURL', function(req, res) {
+           res.json({ url: context.config.api });
+        });
 
         files.forEach(function(file, index) {
             app.use(file.url, function(req, res) {
@@ -57,10 +62,6 @@ module.exports = {
                     }
                 });
             });
-        });
-        
-        app.use('/GETAPIURL', function(req, res) {
-           res.json({ url: this.config.api });
         });
 
         // 404 error

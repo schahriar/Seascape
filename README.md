@@ -1,5 +1,11 @@
 # Seascape
-Front-end (WEBMAIL) for [Galleon](https://github.com/schahriar/galleon) *Beta 1* Mail Server. It is also a showcase for module integration from the future Beta 2 version.
+Front-end (WEBMAIL) for [Galleon](https://github.com/schahriar/galleon) *Beta 2* Mail Server.
+
+## What's new
+- XSS Protection using Anti Module
+- Responsive design
+- Attachment & Multi-upload support
+- Auto-discovery
 
 ## Installation
 Follow the [directions to install Galleon](https://github.com/schahriar/Galleon/blob/master/tutorials/INSTALLATION.md) and after running **galleon setup** you'll be able to install Seascape using:
@@ -43,7 +49,6 @@ server {
         }
 }
 ```
-Note that this requires a removal of port from **/scriptes/master.js** at line 15 and a recompilation through *gulp*. API Discovery will be automatic after Galleon Beta 2 is released.
 
 ## Access
 A FQDN (Fully Qualified Domain Name) is required for access. You'll need to set this up through **galleon setup** which will provide access to your webmail interface through <your-domain.com>:2095

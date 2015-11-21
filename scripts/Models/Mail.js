@@ -1,11 +1,16 @@
 var unknown = "unknown",
-    fail = no = false,
-    pass = yes = true,
+    no = false,
+    yes = true,
+    fail = false,
+    pass = true,
     empty = "";
+    
+var Anti = require('anti');
+var XSSParser = new Anti({ experimentalInlineCSS: true });
 
 module.exports = function(Backbone) {
     return Backbone.Model.extend({
-        urlRoot: '/api',
+        urlRoot: window.root,
         idAttribute: 'eID',
 
         // Default attributes
@@ -16,7 +21,7 @@ module.exports = function(Backbone) {
                     name: unknown,
                     email: unknown
                 },
-                to: new Array,
+                to: [],
                 subject: unknown,
 
                 read: false,
@@ -34,7 +39,12 @@ module.exports = function(Backbone) {
 
         initialize: function() {
             this.createExcerpt();
-            if (this.get('html').length < this.get('text').length) this.set('html', this.get('text'))
+            // Text or HTML shouldn't be undefined
+            this.set('html', this.get('html') || "");
+            this.set('text', this.get('text') || "");
+            // XSS Protection
+            this.set('html', XSSParser.parse(this.get('html')));
+            if (this.get('html').length < (this.get('text'))?this.get('text').length:0) this.set('html', this.get('text'));
         },
 
         setRead: function() {
@@ -60,16 +70,19 @@ module.exports = function(Backbone) {
 
         markAs: function(mark) {
             var model = this;
-            // If trashing from trash folder
-            if((mark.trash === true) && (this.get('trash') === true))
+            // If trashing from trash folder or trashing draft/outbox
+            if(
+                ((mark.trash === true) && (this.get('trash') === true)) ||
+                ((mark.trash === true) && (this.get('folder') === 'draft'))
+            )
                 this.destroy();
             else {
                 _.forEach(mark, function(value, key) {
-                    mark[key] = !(model.get(key) && value)
-                })
+                    mark[key] = !(model.get(key) && value);
+                });
                 this.set(mark).save(mark, { patch: true });
             }
         }
 
-    })
-}
+    });
+};

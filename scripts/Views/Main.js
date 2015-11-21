@@ -2,7 +2,7 @@ module.exports = function(Backbone, MailBox, MailView, ItemView, UI) {
     return Backbone.View.extend({
         el: $("section#list"),
         view: $("#view"),
-        find: function(criteria) { return MailBox.findWhere(criteria) },
+        find: function(criteria) { return MailBox.findWhere(criteria); },
         MailView: MailView,
 
         // The DOM events specific to an item.
@@ -31,7 +31,7 @@ module.exports = function(Backbone, MailBox, MailView, ItemView, UI) {
             this.el = $("section#list");
 
             this.el.empty();
-            if(append) this.el.append('<div class="zero">Ops, you have no emails here... <br> <a>How about sending an email to a friend?</a></div>')
+            if(append) this.el.append('<div class="zero">Ops, you have no emails here... <br> <a>How about sending an email to a friend?</a></div>');
         },
 
         addOne: function(mail) {
@@ -67,7 +67,7 @@ module.exports = function(Backbone, MailBox, MailView, ItemView, UI) {
 
         load: function(e) { UI.load.apply(this, arguments); },
 
-        render: function() { this.addAll() }
+        render: function() { this.addAll(); }
 
     });
 }

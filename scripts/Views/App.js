@@ -28,7 +28,7 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
         },
 
         fit: function() {
-            $('.full-height').css({ height: $(window).height() - $('nav').outerHeight(true) })
+            $('.full-height').css({ height: $(window).height() - $('nav').outerHeight(true) });
         },
 
         page: function(e) {
@@ -49,7 +49,7 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
                 else if(attr === 'prev') to = (stats.page > 1)?--stats.page:stats.page;
 
                 // Fetch
-                MailBox.fetch({ data: { page: to, folder: stats.folder }, reset: true })
+                MailBox.fetch({ data: { page: to, folder: stats.folder }, reset: true });
         },
 
         folder: function(e) {
@@ -65,7 +65,7 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
             stats.folder = attr;
 
             // Fetch
-            MailBox.fetch({ data: { folder: attr, page: stats.page }, reset: true })
+            MailBox.fetch({ data: { folder: attr, page: stats.page }, reset: true });
         },
 
         action: function(e) {
@@ -77,7 +77,7 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
                 access.logout(function(result){
                     if(result.success) alert("successfully logged out!");
                     window.location.reload();
-                })
+                });
             }
 
             // Change password action
@@ -86,7 +86,7 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
                     if(result.error) return alert(result.error);
                     if(result.success) alert("successfully changed password!");
                     window.location.reload();
-                })
+                });
             }
 
             // List action
@@ -102,14 +102,14 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
                 rClasses.splice(color, 1);
                 el.click(function(){
                     if(!$(this).is(':first-child'))$(this).prependTo($(this).parent());
-                })
+                });
                 $('#composer').prepend(el);
                 var composer = new Composer({ el: $('#' + id) });
             }
 
             // MarkAs functions -> mark the current email/selection with given attribute
             if (action.split('-')[0] === 'markAs') {
-                var change = new Object;
+                var change = {};
                 change[action.split('-')[1]] = true;
                 if($('#App').is('.isDisplayMail')) {
                     var mail = MailBox.findWhere({ 'eID': $(this.el).find('#view > section').attr('data-eid') });
@@ -119,9 +119,9 @@ module.exports = function(Backbone, MailBox, Composer, UI, access) {
                     _.each(MailBox.where({ selected: true }), function(mail) {
                         mail.markAs(change);
                         MailBox.remove(mail);
-                    })
+                    });
                 }
             }
         }
-    })
-}
+    });
+};

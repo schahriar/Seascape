@@ -14,16 +14,26 @@ module.exports = function(Backbone) {
         },
 
         templates: {
-            full: _.template('' + '<div class="overlay"></div>' + '<div class="title pure-g">' + '<div id="title" class="pure-u-20-24">New Email</div><div class="pure-u-1-24"></div>' + '<div class="pure-u-1-24 option" data-action="minimize"><i class="fa fa-minus"></i></div>' + '<div class="pure-u-1-24 option" data-action="close"><i class="fa fa-close"></i></div>' + '</div>' + '<form>' + '<input name="to" placeholder="To" value="<%- to %>">' + '<input name="subject" placeholder="Subject" autocomplete="off" value="<%- subject %>">' + '<div id="message" contenteditable="true"></div>' + '<div class="pure-g toolbar">' + '<button data-submit="true" class="pure-button pure-button-primary pure-u-2-5">Send</button>' + '<div class="pure-u-3-5 options">' + '<button data-editor="r" data-editor-format="removeFormat" class="fa fa-eraser editor-button">' + '<button data-editor="o" data-editor-format="insertOrderedList" class="fa fa-list-ol editor-button">' + '<button data-editor="o" data-editor-format="insertUnorderedList" class="fa fa-list-ul editor-button">' + '<button data-editor="t" data-editor-format="underline" class="fa fa-underline editor-button">' + '<button data-editor="t" data-editor-format="italic" class="fa fa-italic editor-button">' + '<button data-editor="t" data-editor-format="bold" class="fa fa-bold editor-button">' + '</div>' + '</div>' + '</form>' + ''),
+            full: _.template($('#template-composer-full').html()),
 
-            inline: _.template('' + '<form>' + '<input name="to" placeholder="To" value="<%- to %>" type="hidden">' + '<input name="subject" placeholder="Subject" autocomplete="off" value="<%- subject %>" type="hidden">' + '<div id="message" contenteditable="true"></div>' + '<input name="append" type="hidden" value="<%= text.replace(new RegExp("\\n", "g"), "<br>") %>">' + '<div class="pure-g toolbar">' + '<button data-submit="true" class="pure-button pure-u-2-5">Send</button>' + '</div>' + '</form>' + '')
+            inline: _.template($('#template-composer-inline').html())
         },
 
         initialize: function(options, to) {
+            var _this = this;
             this.to = to || '';
             this.options = options;
             this.format = {};
             this.render();
+            
+            /* No Drafting for inline composers */
+            // Create New Draft if not inlined
+            if(!options.inline)
+                $.post(window.root + "send", { draft: true })
+                .done(function(msg) {
+                    _this.id = msg.id;
+                    _this.status = msg.status;
+                });
         },
 
         // Render statistics and buttons
@@ -35,7 +45,7 @@ module.exports = function(Backbone) {
                 text: "",
 
                 inline: false
-            })
+            });
 
             // Do a bunch of clever selection stuff later
             rangy.init();
@@ -50,6 +60,35 @@ module.exports = function(Backbone) {
                 // Placeholder
                 $(this.el).find('#message').attr('data-placeholder', "Reply to this message by writing your reply here ...");
             }
+            
+            // Attachment zone
+            this.zone = new Dropzone($(this.el).find("#message")[0], { // Make Message Body the dropzone
+                url: function(){
+                    var mail = _this.getMail(true);
+                    return window.root + 'send/' + mail.id + '/attachment';
+                }, // Set the url  
+                maxFilesize: 10,
+                paramName: "attachment",
+                addRemoveLinks: true,
+                dictRemoveFile: "x",
+                autoQueue: true, // Auto-send
+                previewsContainer: $(this.el).find("#preview")[0], // Define the container to display the previews
+                clickable: $(this.el).find('[data-action="attach"]')[0]
+            });
+            // DropzoneJS Events
+            // Set ref to every uploaded element
+            this.zone.on('success', function(file, result) {
+                $(file.previewElement).attr('id', result.ref);
+                $(file.previewElement).find('.dz-remove').click(function() {
+                    if (result.ref) {
+                        var mail = _this.getMail(true);
+                        $.ajax({
+                            url: window.root + 'send/' + mail.id + '/attachment/' + result.ref,
+                            type: 'DELETE'
+                        });
+                    }
+                });
+            });
 
             // Bind keyboard
             $(this.el).bind('keydown', function(event) {
@@ -73,6 +112,14 @@ module.exports = function(Backbone) {
                     }
                 }
             });
+            
+            var UpdateDraft = _.debounce(function() {
+                // Update Draft (REQUIRES AN ID)
+                if(_this.id) $.post(window.root + "send", _this.getMail(true));
+            }, 1000);
+            
+            $(this.el).find('input').bind('change', UpdateDraft);
+            $(this.el).on('keypress', UpdateDraft);
 
             // Bind buttons
             $(this.el).find('[data-editor]').each(function() {
@@ -87,8 +134,8 @@ module.exports = function(Backbone) {
                     else _this.removeStyles();
 
                     return false;
-                })
-            })
+                });
+            });
         },
 
         min: function(e) {
@@ -131,12 +178,10 @@ module.exports = function(Backbone) {
                 $(_this.el).find('[data-editor-format="' + format.name + '"][data-editor="t"]').toggleClass('active', false);
                 format.status = false;
                 return format;
-            })
+            });
         },
-
-        submit: function(e) {
-            e.preventDefault();
-
+        
+        getMail: function(draft) {
             var el = $(this.el);
             var append = el.find('input[name="append"]').val() || "";
             var email = {
@@ -144,11 +189,25 @@ module.exports = function(Backbone) {
                 subject: el.find('input[name="subject"]').val(),
                 text: el.find('#message').text() + append,
                 html: el.find('#message').html() + append
-            }
+            };
+            
+            // Assign Draft ID if Available
+            if(this.id) email.id = this.id;
+            
+            // Assign Draft Bool if given
+            if(draft) email.draft = (!!draft);
+            
+            return email;
+        },
+
+        submit: function(e) {
+            e.preventDefault();
+
+            var email = this.getMail();
 
             if ((email.html.length > 1) || window.confirm("Your message body seems to be empty. Do you still want send it?")) {
 
-                $.post("/api/send", email)
+                $.post(window.root + "send", email)
                     .done(function(msg) {
                         alert("Message sent");
                     });
@@ -158,5 +217,5 @@ module.exports = function(Backbone) {
             }
         }
 
-    })
-}
+    });
+};

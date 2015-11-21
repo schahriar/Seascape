@@ -9,19 +9,9 @@ Backbone.$ = $;
 window.$ = $;
 window._ = _;
 window.moment = moment;
+window.root = '/api';
 
-// Locate API
-$.ajaxPrefilter(function( options ) {
-    options.url = '//'+location.hostname+':3080' + options.url;
-	options.crossDomain ={
-	    crossDomain: true
-	    };
-	    options.xhrFields = {
-	        withCredentials: true
-	    };
-});
-
-var unknown = "unknown", fail = no = false, pass = yes = true, empty = "";
+var unknown = "unknown", no = false, yes = true, fail = false, pass = true, empty = "";
 
 var access = require('./access');
 
@@ -30,18 +20,18 @@ var UI = {
 };
 var Models = {
 	Mail: require('./Models/Mail')
-}
+};
 var Collections = {
 	MailBox: require('./Collections/MailBox')
-}
+};
 var Views = {
 	Item	: require('./Views/Item'),
 	Mail	: require('./Views/Mail'),
 	Main	: require('./Views/Main'),
 	Composer: require('./Views/Composer'),
 	App		: require('./Views/App'),
-}
-var client = new Object;
+};
+var client = {};
 var stats = {
 	folder:  'inbox',
 	page: 1,
@@ -68,11 +58,11 @@ client.build = function(){
 	this.Mail = Mail;
 	this.MailBox = MailBox;
 	this.ItemView = ItemView;
-	this.View = new View;
-	this.App = new App;
-}
+	this.View = new View();
+	this.App = new App();
+};
 
-$(function(){
+function onAPIAvailable() {
 	function Launch(){
 		$('#App').addClass('ready');
 		window.API = new client.build();
@@ -84,8 +74,8 @@ $(function(){
 	// Show login page if access is not granted
 	access.check(function(auth){
 		if(auth !== true) LoginInterface.parent().removeClass('hidden');
-		else Launch()
-	})
+		else Launch();
+	});
 
 	// Bind login functions
 	LoginInterface.submit(function(event){
@@ -99,7 +89,7 @@ $(function(){
 			LoginInterface.find("#password").val("");
 			if(!!auth.success){
 				LoginInterface.parent().removeClass('error').addClass('success');
-				Launch()
+				Launch();
 				setTimeout(function(){
 					LoginInterface.parent().addClass('hidden');
 				}, 1000);
@@ -109,6 +99,13 @@ $(function(){
 					LoginInterface.parent().removeClass('error');
 				}, 10000);
 			}
-		})
-	})
-})
+		});
+	});
+}
+
+(function(){
+	$.get("/GETAPIURL", function(data) {
+		if(data) window.root = data.url;
+		onAPIAvailable();
+	}, "json");
+})();

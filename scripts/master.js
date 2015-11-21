@@ -9,17 +9,7 @@ Backbone.$ = $;
 window.$ = $;
 window._ = _;
 window.moment = moment;
-
-// Locate API
-$.ajaxPrefilter(function( options ) {
-    options.url = '//'+location.hostname+':3080' + options.url;
-	options.crossDomain ={
-	    crossDomain: true
-	    };
-	    options.xhrFields = {
-	        withCredentials: true
-	    };
-});
+window.root = '/';
 
 var unknown = "unknown", fail = no = false, pass = yes = true, empty = "";
 

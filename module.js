@@ -16,6 +16,9 @@ var files = [{
     url: '/',
     path: "index.html"
 }, {
+    url: "/logo_modified.png",
+    path: "logo_modified.png" 
+}, {
     url: '/logo-mini.png',
     path: "logo-mini.png"
 }, {

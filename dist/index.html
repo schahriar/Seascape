@@ -2,10 +2,12 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Galleon Email Instance</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-    <link rel="stylesheet" href="/dist/style.css">
+    <link rel="stylesheet" href="dist/pure-responsive.css">
+    <link rel="stylesheet" href="dist/style.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,17 +24,18 @@
         </div>
     </nav>
     <div class="pure-g full-height">
-        <div id="folders" class="pure-u-4-24">
+        <div id="folders" class="pure-u-lg-4-24 pure-u-md-6-24 pure-u-sm-8-24">
             <button data-action="compose" class="compose pure-button pure-button-primary">Compose</button>
             <label class="title">Mailboxes</label>
             <ul>
                 <li data-folder="inbox" data-action="list" class="active">Inbox</li>
                 <li data-folder="sent" data-action="list">Sent</li>
+                <li data-folder="draft" data-action="list">Draft</li>
                 <li data-folder="spam" data-action="list">Spam</li>
                 <li data-folder="trash" data-action="list">Trash</li>
             </ul>
         </div>
-        <div id="App" class="pure-u-20-24">
+        <div id="App" class="pure-u-lg-20-24 pure-u-md-18-24 pure-u-sm-16-24">
             <div id="toolbar" class="pure-u-1">
                 <div class="inner">
                     <button data-page="next" class="pure-u-2-24 pure-button"><i class="fa fa-caret-square-o-right"></i></button>
@@ -79,6 +82,7 @@
     <div id="composer"></div>
 
     <!-- Templates -->
+    <!-- List-item Template -->
     <script type="text/template" id="template-list-item">
         <header>
             <div class="pure-g inline <%- (read)?" read ":"unread " %>">
@@ -92,7 +96,55 @@
             <div class="date "></div>
             </header>
     </script>
-    <script src="/dist/bundle.js "></script>
+    
+    <!-- Composer Template -> Full -->
+    <script type="text/template" id="template-composer-full">
+        <div class="overlay"></div>
+        <div class="title pure-g">
+            <div id="title" class="pure-u-20-24">New Email</div>
+            <div class="pure-u-1-24"></div>
+            <div class="pure-u-1-24 option" data-action="minimize">
+                <i class="fa fa-minus"></i>
+            </div>
+            <div class="pure-u-1-24 option" data-action="close">
+                <i class="fa fa-close"></i>
+            </div>
+        </div>
+        <form>
+            <input name="to" placeholder="To" value="<%- to %>">
+            <input name="subject" placeholder="Subject" autocomplete="off" value="<%- subject %>">
+            <div id="message" contenteditable="true"></div>
+            <div id="preview"></div>
+            <div class="pure-g toolbar">
+                <button data-submit="true" class="pure-button pure-button-primary pure-u-8-24">Send</button>
+                <div data-action="attach" class="pure-button pure-u-2-24"><i class="fa fa-file"></i></div>
+                <div class="pure-u-14-24 options">
+                    <button data-editor="r" data-editor-format="removeFormat" class="fa fa-eraser editor-button">
+                    <button data-editor="o" data-editor-format="insertOrderedList" class="fa fa-list-ol editor-button">
+                    <button data-editor="o" data-editor-format="insertUnorderedList" class="fa fa-list-ul editor-button">
+                    <button data-editor="t" data-editor-format="underline" class="fa fa-underline editor-button">
+                    <button data-editor="t" data-editor-format="italic" class="fa fa-italic editor-button">
+                    <button data-editor="t" data-editor-format="bold" class="fa fa-bold editor-button">
+                </div>
+            </div>
+        </form>
+    </script>
+    
+    <!-- Composer Template -> Inline -->
+    <script type="text/template" id="template-composer-inline">
+        <form>
+            <input name="to" placeholder="To" value="<%- to %>" type="hidden">
+            <input name="subject" placeholder="Subject" autocomplete="off" value="<%- subject %>" type="hidden">
+            <div id="message" contenteditable="true"></div>
+            <input name="append" type="hidden" value='<%= text.replace(new RegExp("\n", "g"), "<br>") %>'>
+            <div class="pure-g toolbar">
+                <button data-submit="true" class="pure-button pure-u-2-5">Send</button>
+            </div>
+        </form>
+    </script>
+    <!-- --------- -->
+    <script src="dist/dropzone.js "></script>
+    <script src="dist/bundle.js "></script>
 </body>
 
 </html>

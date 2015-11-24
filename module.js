@@ -3,34 +3,6 @@ var path = require('path');
 var fs = require('fs');
 var path = require('path');
 
-var files = [{
-    url: '/dist/bundle.js',
-    path: "bundle.js"
-}, {
-    url: '/dist/style.css',
-    path: "style.css"
-}, {
-    url: '/home',
-    path: "index.html"
-}, {
-    url: '/',
-    path: "index.html"
-}, {
-    url: "/logo_modified.png",
-    path: "logo_modified.png" 
-}, {
-    url: '/logo-mini.png',
-    path: "logo-mini.png"
-}, {
-    url: '/logo-white.png',
-    path: "logo-white.png"
-}, {
-    url: '/logo.png',
-    path: "logo.png"
-}];
-
-
-
 module.exports = {
     name: "Seascape",
     extends: "frontend",
@@ -46,26 +18,8 @@ module.exports = {
         app.get('/GETAPIURL', function(req, res) {
            res.json({ url: context.config.api });
         });
-
-        files.forEach(function(file, index) {
-            app.use(file.url, function(req, res) {
-                res.sendFile(file.path, {
-                    root: __dirname + "/dist/",
-                    dotfiles: 'deny',
-                    headers: {
-                        'x-timestamp': Date.now(),
-                        'x-sent': true
-                    }
-                }, function(error) {
-                    if (error) {
-                        console.log(error);
-                        res.status(error.status).end();
-                    } else {
-                        console.log('SEASCAPE [SENT]:', file.path);
-                    }
-                });
-            });
-        });
+        
+        app.use(express.static(__dirname + "/dist/"));
 
         // 404 error
         app.use(function(req, res, next) {

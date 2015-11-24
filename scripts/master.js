@@ -11,6 +11,16 @@ window._ = _;
 window.moment = moment;
 window.root = '/api';
 
+// Force CORS options on all Ajax Requests
+$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+  options.crossDomain ={
+    crossDomain: true
+  };
+  options.xhrFields = {
+    withCredentials: true
+  };
+});
+
 var unknown = "unknown", no = false, yes = true, fail = false, pass = true, empty = "";
 
 var access = require('./access');

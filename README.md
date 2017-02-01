@@ -37,6 +37,11 @@ server {
         location / {
                 try_files $uri $uri/ $uri.html =404;
         }
+        
+        location /GETAPIURL {
+                more_set_headers "Content-Type: application/json; charset=UTF-8";
+                return 200 '{"url":"http://<your-domain>:3080/"}';
+        }
 
         location /api/ {
                 proxy_set_header X-Real-IP $remote_addr;

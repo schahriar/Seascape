@@ -39,7 +39,7 @@ server {
         }
         
         location /GETAPIURL {
-                more_set_headers "Content-Type: application/json; charset=UTF-8";
+                add_header "Content-Type" "application/json; charset=UTF-8";
                 return 200 '{"url":"http://<your-domain>:3080/"}';
         }
 
